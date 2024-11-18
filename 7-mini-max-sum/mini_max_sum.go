@@ -12,43 +12,34 @@ import (
  */
 
 func miniMaxSum(arr []int32) {
-	var sumaMinima int32 = 0
-	var sumaMaxima int32 = 0
-	var minInt32Number int32 = math.MaxInt32
-	var maxInt32Number int32 = math.MinInt32
+	var total int64 = 0
+	var sumaMinima int64 = 0
+	var sumaMaxima int64 = 0
+	var minInt64Number int64 = math.MaxInt64
+	var maxInt64Number int64 = math.MinInt64
 	j := len(arr) - 1
 	for i := 0; i < len(arr); i++ {
-		if arr[i] < minInt32Number {
-			minInt32Number = arr[i]
+		if int64(arr[i]) <= minInt64Number {
+			minInt64Number = int64(arr[i])
 		}
-		if arr[j] > maxInt32Number {
-			maxInt32Number = arr[j]
+		if int64(arr[j]) >= maxInt64Number {
+			maxInt64Number = int64(arr[j])
 		}
 		j--
+		total += int64(arr[i])
 	}
-	fmt.Println("El numero maximo es: ", maxInt32Number)
-	fmt.Println("El numero minimo es: ", minInt32Number)
 
-	for i := 0; i < len(arr); i++ {
-		if arr[i] == maxInt32Number {
-			sumaMinima += 0
-			sumaMaxima += maxInt32Number
-			continue
-		}
-		if arr[i] == minInt32Number {
-			sumaMinima += minInt32Number
-			sumaMaxima += 0
-			continue
-		}
-		sumaMinima += arr[i]
-		sumaMaxima += arr[i]
-	}
-	fmt.Println("El numero minimo es: ", sumaMinima)
-	fmt.Println("El numero maximo es: ", sumaMaxima)
+	sumaMinima = total - maxInt64Number
+	sumaMaxima = total - minInt64Number
+	fmt.Println(sumaMinima, sumaMaxima)
 }
 
 func main() {
-	arr := []int32{1, 2, 3, 4, 5}
+	arr := []int32{1, 1, 3, 5, 5}
+	arr2 := []int32{1, 1, 1, 1, 1}
+	arr3 := []int32{4, 4, 4, 4, 1}
 
 	miniMaxSum(arr)
+	miniMaxSum(arr2)
+	miniMaxSum(arr3)
 }
