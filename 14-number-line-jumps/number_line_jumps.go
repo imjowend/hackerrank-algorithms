@@ -14,15 +14,14 @@ func main() {
 	fmt.Println(areSynchronized(kangaroo1.initialPosition, kangaroo1.jumpLength, kangaroo2.initialPosition, kangaroo2.jumpLength))
 }
 
+// Mientras El de MENOR Posicion Inicial esté por atrás del de MAYOR Posición Inicial
+// SUMAR a las posiciones la Longitud del Salto y Evaluar que sean IGUALES
+// si son Iguales, devolver YES, si el de MENOR Posicion Inicial pasa al de MAYOR Posición Inicial
+// Terminar el Loop indicando que NO
 func areSynchronized(x1 int32, v1 int32, x2 int32, v2 int32) string {
 	if (x1 > x2 && v1 > v2) || (x2 > x1 && v2 > v1) {
 		return "NO"
 	}
-
-	// Mientras El de MENOR Posicion Inicial esté por atrás del de MAYOR Posición Inicial
-	// SUMAR a las posiciones la Longitud del Salto y Evaluar que sean IGUALES
-	// si son Iguales, devolver YES, si el de MENOR Posicion Inicial pasa al de MAYOR Posición Inicial
-	// Terminar el Loop indicando que NO
 	var lowerInitialPosition int32
 	var upperInitialPosition int32
 	var lowerJumpLength int32
@@ -38,11 +37,17 @@ func areSynchronized(x1 int32, v1 int32, x2 int32, v2 int32) string {
 		upperInitialPosition = x2
 		upperJumpLength = v2
 	}
-	fmt.Println(lowerInitialPosition, upperInitialPosition)
-	var lowerKangaroo int64
-	var upperKangaroo int64
-	for true {
 
+	for true {
+		if lowerInitialPosition < upperInitialPosition {
+			lowerInitialPosition += lowerJumpLength
+			upperInitialPosition += upperJumpLength
+		} else if lowerInitialPosition == upperInitialPosition {
+			return "YES"
+		} else if lowerInitialPosition > upperInitialPosition {
+			return "NO"
+		}
 	}
+
 	return "YES"
 }
